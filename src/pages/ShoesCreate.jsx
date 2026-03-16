@@ -21,19 +21,15 @@ function ShoesCreate() {
   /**
    * Hàm xử lý tạo mới giày
    * Được truyền vào ShoesForm như callback onSubmit
-   * @param {Object} formData - Dữ liệu form (ShoesRequest)
    */
   const handleCreate = async (formData) => {
-    // Gọi API tạo mới
     await shoesApi.create(formData);
-    // Chuyển về trang danh sách sau khi tạo thành công
     navigate("/shoes");
   };
 
   return (
     <div>
-      <h2 className="mb-4">Thêm mới giày</h2>
-      {/* isEdit=false (mặc định) -> hiển thị nút "Tạo mới" */}
+      <h2 className="mb-4">Add New Shoes</h2>
       <ShoesForm onSubmit={handleCreate} />
     </div>
   );

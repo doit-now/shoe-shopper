@@ -24,17 +24,14 @@ function ShoesDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  /**
-   * Lấy chi tiết giày từ API khi component mount
-   */
   useEffect(() => {
     const fetchDetail = async () => {
       try {
         const response = await shoesApi.getById(id);
         setShoes(response.data);
       } catch (err) {
-        console.error("Lỗi khi lấy chi tiết giày:", err);
-        setError("Không thể tải thông tin giày");
+        console.error("Error fetching shoes detail:", err);
+        setError("Unable to load shoes information");
       } finally {
         setLoading(false);
       }
@@ -42,9 +39,6 @@ function ShoesDetail() {
     fetchDetail();
   }, [id]);
 
-  /**
-   * Hàm format ngày tháng
-   */
   const formatDate = (dateStr) => {
     if (!dateStr) return "N/A";
     const date = new Date(dateStr);
@@ -64,37 +58,36 @@ function ShoesDetail() {
   }
 
   if (!shoes) {
-    return <Alert variant="warning">Không tìm thấy giày</Alert>;
+    return <Alert variant="warning">Shoes not found</Alert>;
   }
 
   return (
     <div>
-      <h2 className="mb-4">Chi tiết giày</h2>
+      <h2 className="mb-4">Shoes Detail</h2>
       <Card>
         <Card.Header as="h5">{shoes.shoesName}</Card.Header>
         <Card.Body>
-          {/* Hiển thị thông tin chi tiết dạng 2 cột */}
           <Row>
             <Col md={6}>
-              <p><strong>Mã giày:</strong> {shoes.shoesId}</p>
-              <p><strong>Tên giày:</strong> {shoes.shoesName}</p>
-              <p><strong>Giá:</strong> {shoes.price?.toLocaleString()} VNĐ</p>
-              <p><strong>Số lượng:</strong> {shoes.quantity}</p>
+              <p><strong>Shoes ID:</strong> {shoes.shoesId}</p>
+              <p><strong>Shoes Name:</strong> {shoes.shoesName}</p>
+              <p><strong>Price:</strong> {shoes.price?.toLocaleString()}</p>
+              <p><strong>Quantity:</strong> {shoes.quantity}</p>
             </Col>
             <Col md={6}>
-              <p><strong>Hãng sản xuất:</strong> {shoes.manufacturer}</p>
-              <p><strong>Ngày sản xuất:</strong> {formatDate(shoes.productionDate)}</p>
-              <p><strong>Ngày nhập:</strong> {formatDate(shoes.importDate)}</p>
-              <p><strong>Danh mục:</strong> {shoes.categoryName}</p>
+              <p><strong>Manufacturer:</strong> {shoes.manufacturer}</p>
+              <p><strong>Production Date:</strong> {formatDate(shoes.productionDate)}</p>
+              <p><strong>Import Date:</strong> {formatDate(shoes.importDate)}</p>
+              <p><strong>Category:</strong> {shoes.categoryName}</p>
             </Col>
           </Row>
         </Card.Body>
         <Card.Footer className="d-flex gap-2">
           <Button variant="primary" onClick={() => navigate("/shoes")}>
-            ← Quay lại
+            ← Back to List
           </Button>
           <Button variant="warning" onClick={() => navigate(`/shoes/edit/${shoes.shoesId}`)}>
-            Sửa
+            Edit
           </Button>
         </Card.Footer>
       </Card>
