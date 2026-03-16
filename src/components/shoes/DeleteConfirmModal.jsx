@@ -4,7 +4,6 @@
  * Mục đích:
  * - Hiển thị hộp thoại (Modal) xác nhận trước khi xóa giày
  * - Tránh người dùng xóa nhầm do click sai
- * - Sử dụng React Bootstrap Modal component
  * 
  * Kỹ thuật:
  * - Controlled Modal: Trạng thái show/hide được điều khiển bởi component cha
@@ -13,32 +12,24 @@
 
 import { Modal, Button } from "react-bootstrap";
 
-/**
- * @param {Object} props
- * @param {boolean} props.show - Hiện/ẩn modal
- * @param {string} props.shoesName - Tên giày sẽ bị xóa (hiển thị trong thông báo)
- * @param {Function} props.onConfirm - Callback khi người dùng xác nhận xóa
- * @param {Function} props.onCancel - Callback khi người dùng hủy bỏ
- */
 function DeleteConfirmModal({ show, shoesName, onConfirm, onCancel }) {
   return (
-    // centered - Căn giữa modal trên màn hình
     <Modal show={show} onHide={onCancel} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Xác nhận xóa</Modal.Title>
+        <Modal.Title>Confirm Delete</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Bạn có chắc chắn muốn xóa giày{" "}
-        <strong>&quot;{shoesName}&quot;</strong> không?
+        Are you sure you want to delete{" "}
+        <strong>&quot;{shoesName}&quot;</strong>?
         <br />
-        <small className="text-muted">Hành động này không thể hoàn tác.</small>
+        <small className="text-muted">This action cannot be undone.</small>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onCancel}>
-          Hủy
+          Cancel
         </Button>
         <Button variant="danger" onClick={onConfirm}>
-          Xóa
+          Delete
         </Button>
       </Modal.Footer>
     </Modal>

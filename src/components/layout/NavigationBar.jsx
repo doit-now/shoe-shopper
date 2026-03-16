@@ -22,7 +22,7 @@ function NavigationBar() {
       <Container>
         {/* Brand/Logo - nhấn vào quay về trang chủ */}
         <Navbar.Brand as={Link} to="/shoes">
-          🥿 Shoes Management
+          Shoes Management
         </Navbar.Brand>
 
         {/* Nút toggle cho màn hình nhỏ (hamburger menu) */}
@@ -34,22 +34,20 @@ function NavigationBar() {
             {/* 
               as={Link} - Dùng React Router Link thay vì thẻ <a> 
               để tránh reload trang (Single Page Application)
-              
-              active - Highlight menu item đang ở trang hiện tại
             */}
             <Nav.Link
               as={Link}
               to="/shoes"
               active={location.pathname === "/shoes"}
             >
-              Danh sách giày
+              Shoes List
             </Nav.Link>
             <Nav.Link
               as={Link}
               to="/shoes/create"
               active={location.pathname === "/shoes/create"}
             >
-              Thêm mới
+              Add New
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

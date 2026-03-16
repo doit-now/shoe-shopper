@@ -75,15 +75,15 @@ function ShoesList() {
       setIsFirst(data.first);
       setIsLast(data.last);
     } catch (err) {
-      console.error("Lỗi khi lấy danh sách giày:", err);
-      setError("Không thể tải danh sách giày. Vui lòng kiểm tra kết nối API.");
+      console.error("Error fetching shoes list:", err);
+      setError("Unable to load shoes list. Please check the API connection.");
     } finally {
       setLoading(false);
     }
   };
 
   /**
-   * Hàm xử lý khi nhấn nút Xóa trên bảng
+   * Hàm xử lý khi nhấn nút Delete trên bảng
    * Mở modal xác nhận và lưu thông tin giày cần xóa
    */
   const handleDeleteClick = (id, name) => {
@@ -99,7 +99,6 @@ function ShoesList() {
     try {
       await shoesApi.delete(deleteTarget.id);
       setShowDeleteModal(false);
-      // Reload danh sách sau khi xóa thành công
       // Nếu trang hiện tại chỉ có 1 bản ghi và không phải trang đầu -> quay về trang trước
       if (shoes.length === 1 && currentPage > 0) {
         setCurrentPage(currentPage - 1);
@@ -107,15 +106,14 @@ function ShoesList() {
         fetchShoes();
       }
     } catch (err) {
-      console.error("Lỗi khi xóa giày:", err);
-      setError("Không thể xóa giày. Vui lòng thử lại.");
+      console.error("Error deleting shoes:", err);
+      setError("Unable to delete shoes. Please try again.");
       setShowDeleteModal(false);
     }
   };
 
   /**
    * Hàm xử lý chuyển trang
-   * @param {number} page - Số trang mới (index bắt đầu từ 0)
    */
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -127,16 +125,16 @@ function ShoesList() {
    */
   const handleSizeChange = (size) => {
     setPageSize(size);
-    setCurrentPage(0); // Quay về trang đầu khi thay đổi kích thước trang
+    setCurrentPage(0);
   };
 
   return (
     <div>
-      {/* Tiêu đề và nút Thêm mới */}
+      {/* Tiêu đề và nút Add New */}
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2>Danh sách giày</h2>
+        <h2>Shoes List</h2>
         <Button variant="success" onClick={() => navigate("/shoes/create")}>
-          + Thêm mới
+          + Add New
         </Button>
       </div>
 
@@ -151,7 +149,7 @@ function ShoesList() {
       {loading ? (
         <div className="text-center my-5">
           <Spinner animation="border" variant="primary" />
-          <p className="mt-2">Đang tải dữ liệu...</p>
+          <p className="mt-2">Loading data...</p>
         </div>
       ) : (
         <>
